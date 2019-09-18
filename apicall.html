@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<div id="accordionExample" class="container">
+
+</div>
+    
+<button onclick="Card()" style="width:200px;display:block;height: 50px;background: rgb(169, 42, 42);color:black;font-size: 30px;border: 1px solid wheat;margin-top:100px;margin-left:500px">clickhere</button>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+<script>
+    function Card(){
+        document.getElementById("accordionExample").innerHTML="";
+    var http=new XMLHttpRequest();
+    http.open("GET","https://jsonplaceholder.typicode.com/users");
+    http.send();
+    http.onreadystatechange=function(){
+        if(this.readyState==4){
+            console.log(this.responseText);
+            var res=JSON.parse(this.responseText);
+            prepareList(res);
+        }
+    }
+    function prepareList(users){
+        users.forEach(function(object,index){
+            var cardelem=
+        '<div class="card">'+
+    '<div class="card-header bg-warning " id="headingOne">'+
+      '<h2 class="mb-0">'+
+        '<button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne'+object.id+'" aria-expanded="true" aria-controls="collapseOne">'+
+         object.id+
+        '</button>'+
+      '</h2>'+
+    '</div>'+
+
+    '<div id="collapseOne'+object.id+'" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">'+
+      '<div class="card-body bg-success text-white">'+
+        '<h6>'+'Name is'+" " +object.name +" "+'</h6>'+
+        '<h6>'+'username is'+" " +object.username +" "+'</h6>'+
+        '<h6>'+'email is'+" " +object.email +" "+'</h6>'+
+        '<h6>'+'city is'+" " +object.address.city +" "+'</h6>'+
+        
+      '</div>'+
+    '</div>'+
+  '</div>'
+  document.getElementById("accordionExample").innerHTML+=cardelem;
+    
+            
+      });
+        
+    }
+    }
+
+
+
+    
+
+</script>
